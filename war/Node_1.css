@@ -1,0 +1,78 @@
+body{
+    font-family: Arial, sans-serif;
+    background-color: #FFB6C1;
+    margin:0;
+    padding: 30px;
+}
+
+.panelBox {
+    background-color: #FAFAD2;
+    border: 1px solid #FF69B4;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    min-height: 300px;
+}
+
+.mainPanel {
+    margin: 0 auto;
+}
+.treePanel {
+    width: 300px;
+}
+.infoPanel {
+    width: 450px;
+}
+
+.appTitle {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
+.dataTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+.dataTable td {
+    border: 1px solid #FF69B4;
+    padding: 8px 12px;
+}
+
+.allNodesPanel {
+    background-color: #FAFAD2;
+    border: 1px solid #FF69B4;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    width: 790px;
+}
+.sectionTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.allNodesPanel button {
+    margin-bottom: 10px;
+}
+.actionsPanel {
+    background-color: #FAFAD2;
+    border: 1px solid #FF69B4;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px;
+}
+.actionsPanel button {
+    margin-right: 8px;
+}
+.actionsPanel .gwt-Label {
+    margin-left: 10px;
+    padding-top: 5px;
+}
+.selectedNodeLabel {
+    margin-left: 15 px;
+}
+.gwt-TreeItem-selected {
+    background-color: #FFB6C1;
+}
