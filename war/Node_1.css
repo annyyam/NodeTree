@@ -71,8 +71,18 @@ body{
     padding-top: 5px;
 }
 .selectedNodeLabel {
-    margin-left: 15 px;
+    margin-left: 15px;
 }
 .gwt-TreeItem-selected {
     background-color: #FFB6C1;
+}
+.addRootPopup {
+    border: 1px solid #999;
+    background-color: #90EE90;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+.gwt-PopupPanelGlass {
+    background-color: black;
+    opacity: 0.35;
 }
