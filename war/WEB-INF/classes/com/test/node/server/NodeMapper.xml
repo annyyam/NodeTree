@@ -6,47 +6,54 @@
 
 <mapper namespace="com.test.node.server.NodeMapper">
 
-<resultMap id="nodeResultMap" type="com.test.node.shared.Node">
-    <id property="id" column="id"/>
-    <result property="ip" column="ip"/>
-    <result property="parentId" column="parent_id"/>
-    <result property="port" column="port"/>
-</resultMap>
+    <resultMap id="nodeResultMap" type="com.test.node.shared.Node">
+        <id property="id" column="id" />
+        <result property="ip" column="ip" />
+        <result property="parentId" column="parent_id" />
+        <result property="port" column="port" />
+    </resultMap>
 
-<select id = "getAllNodes" resultMap="nodeResultMap">
-    select id, ip, port, parent_id
-    from nodes
-</select>
+    <select id="getAllNodes" resultMap="nodeResultMap">
+        select id, ip, port, parent_id
+        from nodes
+    </select>
 
-<select id = "getNode" parameterType = "int" resultMap="nodeResultMap">
-select id, ip, port, parent_id
-from nodes
-where id = #{id}
-</select>
+    <select id="getNode" parameterType="int" resultMap="nodeResultMap">
+        select id, ip, port, parent_id
+        from nodes
+        where id = #{id}
+    </select>
 
-<insert id = "createNode" parameterType = "com.test.node.shared.Node" useGeneratedKeys="true" keyProperty="id">
-insert into nodes (ip, port, parent_id)
-values(#{ip}, #{port}, #{parentId})
-</insert>
+    <select id="getChildren" parameterType="int" resultMap="nodeResultMap">
+        select id, ip, port, parent_id
+        from nodes
+        where parent_id =
+        #{parentId}
+    </select>
 
-<update id = "updateNode" parameterType = "com.test.node.shared.Node">
-update nodes
-set ip = #{ip}, port = #{port}, parent_id = #{parentId}
-where id = #{id}
-</update>
+    <select id="getRootNodes" resultMap="nodeResultMap">
+        select id, ip, port, parent_id
+        from nodes
+        where parent_id is null
+    </select>
 
-<delete id = "deleteNode" parameterType = "int">
-with recursive children as (
-select id from nodes
-where id = #{id}
-union all
-select node.id
-from nodes node
-inner join children ch
-on node.parent_id = ch.id
-)
-delete from nodes
-where id in (select id from children)
-</delete>
+
+    <insert id="createNode" parameterType="com.test.node.shared.Node" useGeneratedKeys="true" keyProperty="id">
+        insert into nodes
+        (ip, port, parent_id)
+        values(#{ip}, #{port}, #{parentId})
+    </insert>
+
+    <update id="updateNode" parameterType="com.test.node.shared.Node">
+        update nodes
+        set ip = #{ip}, port = #{port}, parent_id = #{parentId}
+        where id =
+        #{id}
+    </update>
+
+    <delete id="deleteNode" parameterType="com.test.node.shared.Node">
+        delete from nodes
+        where id = #{id}
+    </delete>
 
 </mapper>

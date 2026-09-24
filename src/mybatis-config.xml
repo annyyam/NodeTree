@@ -6,23 +6,23 @@
 
 <configuration>
 
-<environments default="development">
-<environment id="development">
+    <environments default="development">
+        <environment id="development">
 
-<transactionManager type="JDBC"/>
+            <transactionManager type="JDBC" />
 
-<dataSource type="POOLED">
-<property name="driver" value="org.postgresql.Driver"/>
-<property name="url" value="jdbc:postgresql://localhost:5432/NodeTree"/>
-<property name="username" value="postgres"/>
-<property name="password" value="annyyamlalala5"/>
-</dataSource>
+            <dataSource type="POOLED">
+                <property name="driver" value="org.postgresql.Driver" />
+                <property name="url" value="jdbc:postgresql://localhost:5432/NodeTree" />
+                <property name="username" value="postgres" />
+                <property name="password" value="annyyamlalala5" />
+            </dataSource>
 
-</environment>
-</environments>
+        </environment>
+    </environments>
 
-<mappers>
-<mapper resource="com/test/node/server/NodeMapper.xml"/>
-</mappers>
+    <mappers>
+        <mapper resource="com/test/node/server/NodeMapper.xml" />
+    </mappers>
 
 </configuration>

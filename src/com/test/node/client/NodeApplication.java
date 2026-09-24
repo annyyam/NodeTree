@@ -1,71 +1,108 @@
 package com.test.node.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.test.node.client.Action.ActionPresenter;
+import com.test.node.client.Action.ActionView;
+import com.test.node.client.AllNodes.AllNodesPresenter;
+import com.test.node.client.AllNodes.AllNodesView;
+import com.test.node.client.DeletePopup.DeletePopupPresenter;
+import com.test.node.client.DeletePopup.DeletePopupView;
+import com.test.node.client.Info.InfoPresenter;
+import com.test.node.client.Info.InfoView;
+//import com.test.node.client.ButtonPopup.ButtonPopupDisplay;
+//import com.test.node.client.ButtonPopup.ButtonPopupPresenter;
+//import com.test.node.client.ButtonPopup.ButtonPopupView;
+import com.test.node.client.NodeFormPopup.NodeFormPopupPresenter;
+import com.test.node.client.NodeFormPopup.NodeFormPopupView;
+import com.test.node.client.Tree.TreePresenter;
+import com.test.node.client.Tree.TreeView;
 import com.test.node.shared.Node;
 
 public class NodeApplication implements EntryPoint {
-    private Node selectedNode; 
-    private InfoPanel infoPanel;
-    private AllNodesPanel allNodesPanel;
-    private TreePanel treePanel;   
-    private ActionPanel actionsPanel;
-    
-    public void onModuleLoad() {
-        infoPanel = new InfoPanel();
-        allNodesPanel = new AllNodesPanel();
-        treePanel = buildTreePanel();   
-        actionsPanel = buildActionPanel();
+    private TreePresenter treePresenter;
+    private InfoPresenter infoPresenter;
+    private AllNodesPresenter allNodesPresenter;
+    private ActionPresenter actionPresenter;
+    //private ButtonPopupPresenter buttonPopupPresenter;
+    private NodeFormPopupPresenter nodeFormPopupPresenter;
+    private DeletePopupPresenter deletePopupPresenter;
 
-        HorizontalPanel topPanel = buildTopPanel(treePanel, infoPanel);
-        VerticalPanel page = new VerticalPanel();
-        Label title = new Label("Client React Tree");
-        title.setStyleName("appTitle");    
-        page.add(title);
-        page.add(topPanel);
-        page.add(actionsPanel);
-        page.add(allNodesPanel);    
-        RootPanel.get().add(page);      
-    } 
-    private HorizontalPanel buildTopPanel(TreePanel treePanel, InfoPanel infoPanel) {
-        HorizontalPanel topPanel = new HorizontalPanel();
-        topPanel.add(treePanel);
-        topPanel.add(infoPanel);
-        topPanel.setStyleName("mainPanel");
-        return topPanel;
-    }  
-    private ActionPanel buildActionPanel () {
-        actionsPanel = new ActionPanel(new NodeActionHandler() {
-            @Override
-            public void onNodesChanged() {  
-                treePanel.refresh();
-                allNodesPanel.refresh();
-            }
-            @Override
-            public void onNodeDeleted() {
-                selectedNode = null;
-                treePanel.refresh();
-                allNodesPanel.refresh();
-                infoPanel.clear();
-                actionsPanel.clearSelectedNode();      
-            }
-        });
-        return actionsPanel;
-    } 
-    private TreePanel buildTreePanel () {
-        treePanel = new TreePanel(); 
-        treePanel.addNodeSelectionHandler(new NodeSelectionHandler() {
+    public void createInfo() {
+        InfoView infoView = new InfoView();
+        infoPresenter = new InfoPresenter(infoView);
+    }
+
+    public void createAllNodes() {
+        AllNodesView allNodesView = new AllNodesView();
+        allNodesPresenter = new AllNodesPresenter(allNodesView);
+        allNodesPresenter.loadNodes();
+    }
+
+    public void createTreePanel() {
+        TreeView treeView = new TreeView();
+        treePresenter = new TreePresenter(treeView);
+        treePresenter.addNodeSelectionHandler(new NodeSelectionHandler() {
             @Override
             public void onNodeSelected(Node node) {
-                selectedNode = node;
-                infoPanel.showNode(node);
-                actionsPanel.setSelectedNode(node);
+                infoPresenter.showNodeOnPanel(node);
+                
+                
+                actionPresenter.setSelectedNode(node);
             }
         });
-        return treePanel;
-    } 
-}
+        treePresenter.loadNodes();
+    }
 
+    public void createPopups() {
+        NodeChangeHandler nodeChangeHandler = new NodeChangeHandler() {
+            @Override
+            public void onNodesChanged() {
+                treePresenter.loadNodes();
+                GWT.log("NODES CHANGED");
+                allNodesPresenter.loadNodes();
+            }
+        };
+        NodeFormPopupView nodeFormPopupView = new NodeFormPopupView();
+        nodeFormPopupPresenter = new NodeFormPopupPresenter(nodeFormPopupView, nodeChangeHandler);
+        DeletePopupView deletePopupView = new DeletePopupView();
+        deletePopupPresenter =new DeletePopupPresenter(deletePopupView, nodeChangeHandler);
+    }
+
+    public void createAction() {
+        ActionView actionView = new ActionView();
+        actionPresenter = new ActionPresenter(actionView, nodeFormPopupPresenter, deletePopupPresenter);
+    }
+
+    public void onModuleLoad() {
+        createInfo();
+        createAllNodes();
+        //createButtonPopup();
+        createTreePanel();
+        createPopups();
+        createAction();
+
+        HorizontalPanel topPanel = buildTopPanel(treePresenter, infoPresenter);
+        VerticalPanel page = new VerticalPanel();
+        Label title = new Label("Client React Tree");
+        title.setStyleName("appTitle");
+        page.add(title);
+        page.add(topPanel);
+
+        actionPresenter.go(page);
+        allNodesPresenter.go(page);
+        RootPanel.get().add(page);
+    }
+
+    private HorizontalPanel buildTopPanel(TreePresenter treePresenter, InfoPresenter infoPresenter) {
+        HorizontalPanel topPanel = new HorizontalPanel();
+        treePresenter.go(topPanel);
+        infoPresenter.go(topPanel);
+        topPanel.setStyleName("mainPanel");
+        return topPanel;
+    }
+}

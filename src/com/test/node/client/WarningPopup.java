@@ -7,11 +7,11 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class WarningPopup extends PopupPanel{
+public class WarningPopup extends PopupPanel {
     private Label message;
     private Button okButton;
-    
-    public WarningPopup () {
+
+    public WarningPopup() {
         super(true);
         setGlassEnabled(true);
         setStyleName("addRootPopup");
@@ -28,6 +28,7 @@ public class WarningPopup extends PopupPanel{
             }
         });
     }
+
     public void showPopup(String messageText) {
         message.setText(messageText);
         center();
