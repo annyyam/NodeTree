@@ -32,7 +32,7 @@ public class NodeServiceImpl extends RemoteServiceServlet implements NodeService
             session.close();
         }
     }
-    
+
     @Override
     public Node saveNode(Node node) {
         SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
@@ -50,46 +50,12 @@ public class NodeServiceImpl extends RemoteServiceServlet implements NodeService
             session.close();
         }
     }
-   /* @Override
-    public Node createNode(String ip, Integer parentId, String port) {
-        SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-        try {
-            NodeMapper mapper = session.getMapper(NodeMapper.class);
-            Node node = new Node(ip, 0, parentId, port);
-            mapper.createNode(node);
-            session.commit();
-            return node;
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public void updateNode(int id, String newIp, Integer newParentId, String newPort) {
-        SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-        try {
-            NodeMapper mapper = session.getMapper(NodeMapper.class);
-            Node node = mapper.getNode(id);
-            if (node == null) {
-                return;
-            }
-            node.setIp(newIp);
-            node.setParentId(newParentId);
-            node.setPort(newPort);
-            mapper.updateNode(node);
-            session.commit();
-        } finally {
-            session.close();
-        }
-    }*/
 
     @Override
     public void deleteNode(Node node) {
-    //(int id) {
         SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
         try {
             NodeMapper mapper = session.getMapper(NodeMapper.class);
-            //Node node = mapper.getNode(id);
             if (node == null) {
                 return;
             }
@@ -109,7 +75,7 @@ public class NodeServiceImpl extends RemoteServiceServlet implements NodeService
         } finally {
             session.close();
         }
-        
+
     }
 
     @Override

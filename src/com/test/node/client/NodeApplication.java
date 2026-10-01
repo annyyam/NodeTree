@@ -3,6 +3,7 @@ package com.test.node.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -12,6 +13,8 @@ import com.test.node.client.AllNodes.AllNodesPresenter;
 import com.test.node.client.AllNodes.AllNodesView;
 import com.test.node.client.DeletePopup.DeletePopupPresenter;
 import com.test.node.client.DeletePopup.DeletePopupView;
+import com.test.node.client.History.HistoryPresenter;
+import com.test.node.client.History.HistoryView;
 import com.test.node.client.Info.InfoPresenter;
 import com.test.node.client.Info.InfoView;
 //import com.test.node.client.ButtonPopup.ButtonPopupDisplay;
@@ -28,9 +31,9 @@ public class NodeApplication implements EntryPoint {
     private InfoPresenter infoPresenter;
     private AllNodesPresenter allNodesPresenter;
     private ActionPresenter actionPresenter;
-    //private ButtonPopupPresenter buttonPopupPresenter;
     private NodeFormPopupPresenter nodeFormPopupPresenter;
     private DeletePopupPresenter deletePopupPresenter;
+    private HistoryPresenter historyPresenter;
 
     public void createInfo() {
         InfoView infoView = new InfoView();
@@ -77,16 +80,21 @@ public class NodeApplication implements EntryPoint {
         ActionView actionView = new ActionView();
         actionPresenter = new ActionPresenter(actionView, nodeFormPopupPresenter, deletePopupPresenter);
     }
+    
+    public void createHistory() {
+        HistoryView historyView = new HistoryView();
+        historyPresenter = new HistoryPresenter(historyView);
+    }
 
     public void onModuleLoad() {
         createInfo();
         createAllNodes();
-        //createButtonPopup();
         createTreePanel();
         createPopups();
         createAction();
+        createHistory();
 
-        HorizontalPanel topPanel = buildTopPanel(treePresenter, infoPresenter);
+        HorizontalPanel topPanel = buildTopPanel(treePresenter, infoPresenter, historyPresenter);
         VerticalPanel page = new VerticalPanel();
         Label title = new Label("Client React Tree");
         title.setStyleName("appTitle");
@@ -96,12 +104,17 @@ public class NodeApplication implements EntryPoint {
         actionPresenter.go(page);
         allNodesPresenter.go(page);
         RootPanel.get().add(page);
+        
+        Image cat = new Image("nekomimiyu-mii.gif");
+        cat.setStyleName("catGif");
+        RootPanel.get().add(cat);
     }
 
-    private HorizontalPanel buildTopPanel(TreePresenter treePresenter, InfoPresenter infoPresenter) {
+    private HorizontalPanel buildTopPanel(TreePresenter treePresenter, InfoPresenter infoPresenter, HistoryPresenter historyPresenter) {
         HorizontalPanel topPanel = new HorizontalPanel();
         treePresenter.go(topPanel);
         infoPresenter.go(topPanel);
+        historyPresenter.go(topPanel);
         topPanel.setStyleName("mainPanel");
         return topPanel;
     }

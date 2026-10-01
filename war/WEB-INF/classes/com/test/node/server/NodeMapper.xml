@@ -11,6 +11,7 @@
         <result property="ip" column="ip" />
         <result property="parentId" column="parent_id" />
         <result property="port" column="port" />
+        <result property="hasChild" column="has_child" />
     </resultMap>
 
     <select id="getAllNodes" resultMap="nodeResultMap">
@@ -25,16 +26,21 @@
     </select>
 
     <select id="getChildren" parameterType="int" resultMap="nodeResultMap">
-        select id, ip, port, parent_id
-        from nodes
-        where parent_id =
-        #{parentId}
+        select n.id, n.ip, n.port, n.parent_id,
+        exists (select 1
+        from nodes child
+        where child.parent_id = n.id) as has_child
+        from nodes n
+        where parent_id = #{parentId}
     </select>
 
     <select id="getRootNodes" resultMap="nodeResultMap">
-        select id, ip, port, parent_id
-        from nodes
-        where parent_id is null
+        select n.id, n.ip, n.port, n.parent_id,
+        exists (select 1
+        from nodes child
+        where child.parent_id = n.id) as has_child
+        from nodes n
+        where n.parent_id is null
     </select>
 
 
@@ -47,8 +53,7 @@
     <update id="updateNode" parameterType="com.test.node.shared.Node">
         update nodes
         set ip = #{ip}, port = #{port}, parent_id = #{parentId}
-        where id =
-        #{id}
+        where id = #{id}
     </update>
 
     <delete id="deleteNode" parameterType="com.test.node.shared.Node">

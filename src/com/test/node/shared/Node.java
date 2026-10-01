@@ -8,6 +8,7 @@ public class Node implements Serializable {
     private int id;
     private Integer parentId;
     private String port;
+    private boolean hasChild;
 
     public Node() {
     }
@@ -34,6 +35,10 @@ public class Node implements Serializable {
     public void setPort(String port) {
         this.port = port;
     }
+    
+    public void setHasChild(boolean hasChild) {
+        this.hasChild = hasChild;
+    }
 
     public int getId() {
         return id;
@@ -50,4 +55,9 @@ public class Node implements Serializable {
     public String getPort() {
         return port;
     }
+    
+    public boolean isHasChild() {
+        return hasChild;
+    }
+
 }

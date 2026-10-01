@@ -86,3 +86,31 @@ body{
     background-color: black;
     opacity: 0.35;
 }
+.historyPanel {
+    width: 300px;
+    vertical-align: top;
+}
+
+.historyScroll {
+    height: 260px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #FF69B4;
+    border-radius: 4px;
+    background-color: #FFFDF0;
+    padding: 5px;
+}
+
+.historyEntry {
+    padding: 4px 6px;
+    border-bottom: 1px dotted #FFB6C1;
+    font-size: 13px;
+    color: #333;
+}
+.catGif {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+    z-index: 1000;
+}
