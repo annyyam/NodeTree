@@ -22,8 +22,8 @@ import com.test.node.client.Info.InfoView;
 //import com.test.node.client.ButtonPopup.ButtonPopupView;
 import com.test.node.client.NodeFormPopup.NodeFormPopupPresenter;
 import com.test.node.client.NodeFormPopup.NodeFormPopupView;
+import com.test.node.client.Tree.CustomTreeView;
 import com.test.node.client.Tree.TreePresenter;
-import com.test.node.client.Tree.TreeView;
 import com.test.node.shared.Node;
 
 public class NodeApplication implements EntryPoint {
@@ -47,7 +47,7 @@ public class NodeApplication implements EntryPoint {
     }
 
     public void createTreePanel() {
-        TreeView treeView = new TreeView();
+        CustomTreeView treeView = new CustomTreeView();
         treePresenter = new TreePresenter(treeView);
         treePresenter.addNodeSelectionHandler(new NodeSelectionHandler() {
             @Override

@@ -1,7 +1,7 @@
-body{
+body {
     font-family: Arial, sans-serif;
     background-color: #FFB6C1;
-    margin:0;
+    margin: 0;
     padding: 30px;
 }
 
@@ -17,9 +17,11 @@ body{
 .mainPanel {
     margin: 0 auto;
 }
+
 .treePanel {
     width: 300px;
 }
+
 .infoPanel {
     width: 450px;
 }
@@ -35,6 +37,7 @@ body{
     border-collapse: collapse;
     width: 100%;
 }
+
 .dataTable td {
     border: 1px solid #FF69B4;
     padding: 8px 12px;
@@ -48,14 +51,17 @@ body{
     margin: 10px;
     width: 790px;
 }
+
 .sectionTitle {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
+
 .allNodesPanel button {
     margin-bottom: 10px;
 }
+
 .actionsPanel {
     background-color: #FAFAD2;
     border: 1px solid #FF69B4;
@@ -63,29 +69,36 @@ body{
     padding: 12px;
     margin: 10px;
 }
+
 .actionsPanel button {
     margin-right: 8px;
 }
+
 .actionsPanel .gwt-Label {
     margin-left: 10px;
     padding-top: 5px;
 }
+
 .selectedNodeLabel {
     margin-left: 15px;
 }
+
 .gwt-TreeItem-selected {
     background-color: #FFB6C1;
 }
+
 .addRootPopup {
     border: 1px solid #999;
     background-color: #90EE90;
     padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
 }
+
 .gwt-PopupPanelGlass {
     background-color: black;
     opacity: 0.35;
 }
+
 .historyPanel {
     width: 300px;
     vertical-align: top;
@@ -107,10 +120,36 @@ body{
     font-size: 13px;
     color: #333;
 }
+
 .catGif {
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 250px;
     z-index: 1000;
+}
+
+.treeArrow {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 4px;
+    width: 20px;
+    color: #333;
+}
+
+.treeNodeLabel {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 6px;
+    text-align: left;
+    color: #333;
+}
+
+.treeNodeLabelSelected {
+    background-color: #FFB6C1;
+    border-radius: 3px;
 }
